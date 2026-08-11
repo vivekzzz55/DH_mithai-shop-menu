@@ -1,62 +1,109 @@
-# Dayal House — Digital Menu
+<div align="center">
 
-A fast, static digital price list for **Dayal House Mithai Shop** (Bantalab Road, Barnai, Jammu). Built as a single-page app with no framework and no build step — just HTML, CSS, and vanilla JS.
+  <img src="src/logo-clean.png" alt="Dayal House Logo" width="120" />
 
-**Live site:** https://dh-mithai-shop-menu.vercel.app
+  # 🍧 Dayal House — Digital Menu
 
-## Features
+  **A modern, lightning-fast digital price list & interactive menu for Dayal House Mithai Shop.**
 
-- **603 items** across 6 categories (Mithai, Ice Cream, Cakes and Pastries, Frozen, Bakery, Assorted Boxes), grouped into sections
-- **Instant search** across item name, section, type, and variant
-- **Sort** by price (low/high) or name
-- **Category tabs** with live item counts
-- **Seasonal badges** for items only available part of the year
-- **Scannable QR code** (generated client-side, no external service) linking back to the page, with the shop logo overlaid
-- **Call / WhatsApp** shortcuts pre-filled with the shop's number
-- Fully responsive, print-friendly QR card, and works offline once loaded (no runtime CDN dependencies)
+  [![Live Demo](https://img.shields.io/badge/Live_Site-dh--mithai--shop--menu.vercel.app-E31825?style=for-the-badge&logo=vercel&logoColor=white)](https://dh-mithai-shop-menu.vercel.app)
+  [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://dh-mithai-shop-menu.vercel.app)
+  [![Veg Status](https://img.shields.io/badge/Dietary-100%25_Pure_Veg-00875A?style=for-the-badge)](https://dh-mithai-shop-menu.vercel.app)
+  [![Items Count](https://img.shields.io/badge/Menu_Items-600%2B_Products-FFAB00?style=for-the-badge)](#features)
 
-## Tech stack
+  *Bantalab Road, Barnai, Jammu &middot; Contact: +91 95960 04999*
 
-Plain HTML/CSS/JS. No build tooling, no bundler, no framework.
+</div>
 
-| Concern       | Choice                                                              |
-| ------------- | -------------------------------------------------------------------- |
-| Markup        | `index.html`                                                        |
-| Styling       | `src/styles.css` (CSS variables, no preprocessor)                   |
-| Behavior      | `src/main.js` (ES module, no dependencies)                          |
-| Data          | `src/menu-data.json` (static export of the current price list)      |
-| QR generation | `src/qrcode.min.js` — [`qrcode`](https://www.npmjs.com/package/qrcode) bundled for the browser with esbuild, vendored so the page has zero third-party runtime calls |
-| Fonts         | Google Fonts (Playfair Display, Outfit, Plus Jakarta Sans)          |
+---
 
-## Project structure
+## 📌 Overview
+
+**Dayal House Digital Menu** is an ultra-lightweight, high-performance web application designed for instant customer access in-store via QR code scanning or online browsing. 
+
+Built with **zero external dependencies** (Vanilla HTML5, CSS3, and ES Modules), the site loads instantaneously, operates smoothly on all mobile devices, and provides a premium digital menu experience without requiring heavy frameworks or build toolchains.
+
+---
+
+## ✨ Key Features
+
+- ⚡ **Instant Search:** Real-time client-side search across 600+ items, categories, sections, variants, and units.
+- 📱 **Mobile-First & Responsive:** Crafted for seamless one-handed smartphone browsing.
+- 🏷️ **6 Curated Categories:** Sweets/Mithai, Ice Cream, Cakes & Pastries, Frozen Favourites, Bakery & Snacks, and Assorted Gift Boxes.
+- 📷 **In-App Dynamic QR Code Generator:** Generates high-res vector QR code with custom logo overlay for table tents and instant sharing.
+- 📞 **Direct One-Tap Contact Bar:** Floating Call & WhatsApp buttons pre-loaded with shop query messages.
+- ❄️ **Seasonal Item Badges:** Dynamic visual indicators for seasonal delicacies (e.g. Gajar Halwa).
+- 🔀 **Smart Sorting:** Filter items by price (Low to High / High to Low) or alphabetically.
+- 🔒 **Zero Third-Party CDN Calls:** 100% self-contained and offline-capable after initial load.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technology | Description |
+| :--- | :--- | :--- |
+| **Markup** | HTML5 | Clean semantic layout structure |
+| **Styling** | Vanilla CSS3 | Custom variables, glassmorphism, responsive grid & typography |
+| **Application Logic** | JavaScript (ES6+) | Frameworkless state management & rendering pipeline |
+| **Database** | JSON (`src/menu-data.json`) | Lightweight static menu schema for instant data retrieval |
+| **QR Code Engine** | `src/qrcode.min.js` | Bundled standalone QR canvas generator |
+| **Typography** | Google Fonts | *Playfair Display*, *Outfit*, *Plus Jakarta Sans* |
+| **Automated Testing** | Playwright | Headless integration suite (`scripts/verify-site.mjs`) |
+| **Hosting & CI/CD** | Vercel Edge Network | Instant automated deployment on push |
+
+---
+
+## 📂 Project Architecture
 
 ```
 .
-├── index.html              Page shell
+├── index.html              # Main application page shell
 ├── src/
-│   ├── styles.css          All styling
-│   ├── main.js              App logic (render, search, sort, QR, contact links)
-│   ├── menu-data.json       Menu data (brand, categories, items, prices)
-│   ├── qrcode.min.js        Vendored QR code generator (browser build)
-│   └── logo-clean.png       Shop logo (transparent background)
+│   ├── main.js             # Application controller (rendering, search, QR, contact actions)
+│   ├── styles.css          # Design system, CSS variables, and layout styles
+│   ├── menu-data.json      # Structured menu database (603 items)
+│   ├── qrcode.min.js       # Bundled QR code generator engine
+│   └── logo-clean.png      # Transparent shop brand asset
 ├── scripts/
-│   └── verify-site.mjs      Playwright smoke test (see below)
-└── artifacts/                Generated screenshots from the verify script (gitignored)
+│   └── verify-site.mjs     # Playwright automated test & visual regression script
+└── artifacts/              # Automated verification screenshots
 ```
 
-## Running locally
+---
 
-No dependencies to install — any static file server works:
+## 🚀 Quick Start (Local Development)
+
+Because this project relies strictly on native browser web standards, **no build step or `npm install` is required**.
+
+### Run Local HTTP Server
+
+Serve the root directory using any static web server:
 
 ```bash
+# Option 1: Python 3
 python3 -m http.server 8791
+
+# Option 2: Node.js static server
+npx serve .
 ```
 
-Then open http://localhost:8791. (`.claude/launch.json` already wires this up if you're using the Claude Code browser preview.)
+Open `http://localhost:8791` in your web browser.
 
-## Updating the menu
+---
 
-Edit `src/menu-data.json` directly. Each item has:
+## ⚙️ Configuration & Maintenance
+
+### 1. Shop Contact Settings
+Store phone numbers and action buttons are controlled at the top of [`src/main.js`](file:///Volumes/Crucial%20X6/Dev%20Projects/mithai%20shop%20online%20menu%20/src/main.js):
+
+```js
+const PHONE = "9596004999";       // Shop contact phone number (10 digits)
+const CTA_MODE = "both";           // Options: "none" | "call" | "whatsapp" | "both"
+const SHOW_VEG_BADGE = true;       // Toggle 100% Pure Veg badge visibility
+```
+
+### 2. Updating Menu Items & Prices
+Modify [`src/menu-data.json`](file:///Volumes/Crucial%20X6/Dev%20Projects/mithai%20shop%20online%20menu%20/src/menu-data.json) directly:
 
 ```json
 {
@@ -74,36 +121,36 @@ Edit `src/menu-data.json` directly. Each item has:
 }
 ```
 
-- Items sharing the same `section` within a category are grouped into one card.
-- Wrap seasonal item names in `(seasonal)` (e.g. `"Gajar Halwa (seasonal)"`) to get the shimmering "Seasonal" badge — the suffix is stripped from the displayed name automatically.
-- `secondaryPrice` / `secondaryLabel` are used for items sold by two units (e.g. ice cream priced per kg and per scoop).
+* **Seasonal Badging:** Append `(seasonal)` to any item name (e.g. `"Gajar Halwa (seasonal)"`) to render the shimmering seasonal badge automatically.
+* **Dual Pricing:** Supply `secondaryPrice` and `secondaryLabel` for products with two sizing options (e.g. per scoop vs per kg).
 
-## Updating shop contact info
+---
 
-`src/main.js` has three constants at the top:
+## 🧪 Automated Testing
 
-```js
-const PHONE = "9596004999";
-const CTA_MODE = "both"; // "none" | "call" | "whatsapp" | "both"
-const SHOW_VEG_BADGE = true;
-```
-
-Change these and the Call/WhatsApp buttons, footer phone display, and QR-code target all update automatically.
-
-## Verifying changes
-
-A Playwright smoke test spins up a local static server, exercises search/sort/category filters, checks the QR canvas actually renders, verifies the Call/WhatsApp links, and screenshots desktop + mobile layouts:
+Run the Playwright smoke test suite to verify search performance, sort logic, QR canvas rendering, contact links, and generate UI snapshot artifacts:
 
 ```bash
 node scripts/verify-site.mjs
 ```
 
-Screenshots are written to `artifacts/` (gitignored — regenerate as needed).
+---
 
-## Deployment
+## 🌐 Deployment
 
-The `main` branch is connected to Vercel — every push deploys automatically. No build command is needed (it's a static site served as-is).
+The repository is linked to **Vercel** for automatic deployment whenever changes are pushed to the `main` branch.
 
 ```bash
-vercel deploy --prod   # manual deploy, if ever needed
+# Manual production deploy command (optional)
+vercel deploy --prod
 ```
+
+---
+
+<div align="center">
+
+  **Dayal House Mithai Shop**  
+  *Bantalab Road, Barnai, Jammu, J&K — 180018*  
+  ☎️ **Call / WhatsApp:** +91 95960 04999
+
+</div>
