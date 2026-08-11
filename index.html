@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Dayal House | Digital QR Menu</title>
+    <meta
+      name="description"
+      content="Scan & view digital price list for Dayal House Mithai Shop, Jammu. Mithai, Ice Cream, Bakery, Frozen, Cakes, and Assorted Boxes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body class="mobile-app">
+    <!-- App Shell Container -->
+    <div class="app-container">
+      
+      <!-- Top Mobile Header -->
+      <header class="app-header">
+        <div class="header-top">
+          <div class="brand-info">
+            <img src="./src/logo-clean.png" alt="Dayal House Logo" class="app-logo" />
+            <div>
+              <h1 class="app-title">Dayal House</h1>
+              <p class="app-subtitle">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                Barnai, Jammu • Digital Menu
+              </p>
+            </div>
+          </div>
+          
+          <button id="qr-btn" class="icon-btn" title="View / Print QR Code" aria-label="View QR Code">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3h6v6H3V3zm12 0h6v6h-6V3zM3 15h6v6H3v-6zm14 0h4v4h-4v-4zm-4 4h4v4h-4v-4zm4-4h4v4h-4v-4z"/><path d="M13 3v4h4V3h-4z"/></svg>
+          </button>
+        </div>
+
+        <!-- Sticky Search & Tools -->
+        <div class="search-bar-wrap">
+          <div class="search-input-box">
+            <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input id="menu-search" type="search" placeholder="Search mithai, kulfi, cake, paneer..." autocomplete="off" />
+            <button id="clear-search" class="clear-btn" type="button" aria-label="Clear search" hidden>&times;</button>
+          </div>
+
+          <div class="sort-wrap">
+            <select id="sort-select" aria-label="Sort Menu">
+              <option value="default">Default</option>
+              <option value="price-asc">₹ Low to High</option>
+              <option value="price-desc">₹ High to Low</option>
+              <option value="name-asc">Name A-Z</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Horizontal Swipe Category Tabs -->
+        <nav class="category-scroll" id="category-tabs" aria-label="Categories"></nav>
+      </header>
+
+      <!-- Main Menu Feed -->
+      <main class="app-main">
+        <div class="status-bar" id="results-bar" role="status"></div>
+        <div class="menu-feed" id="menu-feed"></div>
+      </main>
+
+      <!-- Sticky Counter Order Helper Bar -->
+      <footer class="app-bottom-bar" id="bottom-bar">
+        <div class="bar-summary">
+          <span class="bar-count" id="order-count">0 items selected</span>
+          <span class="bar-hint">Tap items to save for counter ordering</span>
+        </div>
+        <button id="view-order-btn" class="bar-action-btn" type="button">
+          <span>View Selection</span>
+        </button>
+      </footer>
+
+    </div>
+
+    <!-- QR Code Modal Dialog -->
+    <dialog id="qr-modal" class="app-modal">
+      <form method="dialog" class="modal-body">
+        <button class="modal-close-btn" type="submit" aria-label="Close">&times;</button>
+        <div class="qr-card">
+          <img src="./src/logo-clean.png" alt="Dayal House Logo" class="qr-logo" />
+          <h2>Scan for Menu</h2>
+          <p>Scan this QR code on your phone to open the Dayal House Digital Menu.</p>
+
+          <div class="qr-code-box" id="qr-code-container">
+            <!-- Rendered SVG QR code -->
+          </div>
+
+          <div class="qr-footer-note">
+            <strong>Dayal House Mithai Shop</strong>
+            <span>Bantalab Road Barnai, Jammu</span>
+          </div>
+
+          <button type="button" class="print-qr-btn" onclick="window.print()">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+            <span>Print QR Card for Counter</span>
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Selected Items Drawer / Modal -->
+    <dialog id="order-modal" class="app-modal">
+      <form method="dialog" class="modal-body">
+        <button class="modal-close-btn" type="submit" aria-label="Close">&times;</button>
+        <div class="order-card">
+          <h3>Your Counter Order Draft</h3>
+          <p class="order-subtext">Show this list to the counter staff for quick ordering.</p>
+          <ul class="order-list" id="order-list"></ul>
+          <div class="order-total-row">
+            <span>Estimated Total:</span>
+            <strong id="order-total-price">Rs 0</strong>
+          </div>
+          <button type="button" id="clear-order-btn" class="clear-selection-btn">Clear Selection</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
+
+
