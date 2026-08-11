@@ -1,6 +1,6 @@
 const rupeeFmt = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
 
-const PHONE = "9696004999";
+const PHONE = "9596004999";
 const CTA_MODE = "both"; // "none" | "call" | "whatsapp" | "both"
 const SHOW_VEG_BADGE = true;
 

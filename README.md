@@ -83,7 +83,7 @@ Edit `src/menu-data.json` directly. Each item has:
 `src/main.js` has three constants at the top:
 
 ```js
-const PHONE = "9696004999";
+const PHONE = "9596004999";
 const CTA_MODE = "both"; // "none" | "call" | "whatsapp" | "both"
 const SHOW_VEG_BADGE = true;
 ```
