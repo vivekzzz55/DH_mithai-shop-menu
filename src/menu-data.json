@@ -3,7 +3,7 @@
   "location": "Bantalab Road Barnai, Jammu",
   "sourceFile": "/Users/vivekviku84gmail.com/Downloads/menu dh mithai shop .xlsx",
   "updatedFor": "Price List 2026-27",
-  "totalItems": 603,
+  "totalItems": 604,
   "priceRange": {
     "min": 1,
     "max": 1700
@@ -2197,6 +2197,19 @@
           "variant": "",
           "unit": "",
           "price": 300,
+          "priceLabel": "MRP",
+          "secondaryPrice": null,
+          "secondaryLabel": ""
+        },
+        {
+          "id": "ice-cream-tubs-750ml-american-nuts",
+          "source": "Ice Cream",
+          "section": "Tubs 750ML",
+          "name": "American Nuts Ice Cream 750ML",
+          "type": "",
+          "variant": "",
+          "unit": "",
+          "price": 250,
           "priceLabel": "MRP",
           "secondaryPrice": null,
           "secondaryLabel": ""

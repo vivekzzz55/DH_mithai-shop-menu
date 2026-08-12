@@ -61,7 +61,7 @@ Built with **zero external dependencies** (Vanilla HTML5, CSS3, and ES Modules),
 ├── src/
 │   ├── main.js             # Application controller (rendering, search, QR, contact actions)
 │   ├── styles.css          # Design system, CSS variables, and layout styles
-│   ├── menu-data.json      # Structured menu database (603 items)
+│   ├── menu-data.json      # Structured menu database (604 items)
 │   ├── qrcode.min.js       # Bundled QR code generator engine
 │   └── logo-clean.png      # Transparent shop brand asset
 ├── scripts/

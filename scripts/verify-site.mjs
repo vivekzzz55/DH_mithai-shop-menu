@@ -48,11 +48,16 @@ try {
   await page.goto(baseUrl, { waitUntil: "networkidle" });
   await page.waitForSelector(".item-row");
 
+  const menuData = JSON.parse(await fs.readFile(path.join(root, "src/menu-data.json"), "utf8"));
+  const expectedTotal = menuData.totalItems;
+
   const total = await page.locator(".item-row").count();
   if (total <= 0) throw new Error("no menu items rendered");
 
   const totalLabel = await page.locator("#results-label").innerText();
-  if (!/603 items/i.test(totalLabel)) throw new Error(`expected 603 items in results label, got "${totalLabel}"`);
+  if (!new RegExp(`${expectedTotal}\\s+items`, "i").test(totalLabel)) {
+    throw new Error(`expected ${expectedTotal} items in results label, got "${totalLabel}"`);
+  }
 
   await page.fill("#menu-search", "kulfi");
   await page.waitForTimeout(200);

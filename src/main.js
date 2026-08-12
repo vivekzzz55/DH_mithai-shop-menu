@@ -143,7 +143,7 @@ function drawQr() {
       const img = new Image();
       img.onload = () => {
         const w = 64;
-        const h = w * (img.height / img.width);
+        const h = img.width > 0 ? w * (img.height / img.width) : w;
         const x = (el.qrCanvas.width - w) / 2;
         const y = (el.qrCanvas.height - h) / 2;
         ctx.fillStyle = "#FFFFFF";
@@ -172,13 +172,17 @@ function renderTabs() {
     )
     .join("");
 
-  el.tabs.querySelectorAll("button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      state.activeCategory = btn.dataset.category;
-      renderTabs();
-      renderMenu();
+  if (!el.tabs.dataset.bound) {
+    el.tabs.dataset.bound = "true";
+    el.tabs.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-category]");
+      if (btn) {
+        state.activeCategory = btn.dataset.category;
+        renderTabs();
+        renderMenu();
+      }
     });
-  });
+  }
 }
 
 function matchesQuery(item, q) {
@@ -197,11 +201,13 @@ function parseName(raw) {
 
 function formatVariant(v) {
   if (!v) return "";
-  const s = v.trim();
-  const packMatch = s.match(/^(\d+)\s*[xX]\s*(\d+)\s*PCS?\.?$/);
+  const s = String(v).trim();
+  const packMatch = s.match(/^(\d+)\s*[xX]\s*(\d+)\s*PCS?\.?$/i);
   if (packMatch) return "Pack of " + packMatch[2];
   if (/^1?\s*(pcs?|piece)\.?$/i.test(s)) return "Per piece";
   if (/^pkt\.?$/i.test(s)) return "Packet";
+  if (/^box\.?$/i.test(s)) return "Box";
+  if (/^bottle\.?$/i.test(s)) return "Bottle";
   return s.replace(/(\d)\s*GM\b/gi, "$1 g").replace(/(\d)\s*KG\b/gi, "$1 kg");
 }
 
@@ -304,7 +310,12 @@ function renderSection(section, index) {
 function renderItem(item) {
   const { clean, seasonal } = parseName(item.name);
   const variantText = formatVariant(item.variant);
-  const metaBits = [variantText, item.priceLabel && item.priceLabel !== "MRP" ? item.priceLabel : ""].filter(Boolean);
+  const unitText = formatVariant(item.unit);
+  const sizeInfo = variantText && unitText && variantText.toLowerCase() !== unitText.toLowerCase() 
+    ? `${variantText} · ${unitText}` 
+    : (variantText || unitText);
+
+  const metaBits = [sizeInfo, item.priceLabel && item.priceLabel !== "MRP" ? item.priceLabel : ""].filter(Boolean);
   const metaText = metaBits.join(" · ");
   const subPriceText = item.secondaryPrice
     ? formatPrice(item.secondaryPrice) + (item.secondaryLabel ? " / " + item.secondaryLabel.replace(/^per\s+/i, "") : "")
